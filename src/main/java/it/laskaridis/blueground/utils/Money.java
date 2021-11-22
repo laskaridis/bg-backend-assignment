@@ -1,5 +1,7 @@
 package it.laskaridis.blueground.utils;
 
+import org.springframework.util.Assert;
+
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -27,6 +29,8 @@ public final class Money implements Serializable {
     }
 
     public Money(BigDecimal amount, Currency currency) {
+        Assert.notNull(amount, "amount can't be null");
+        Assert.notNull(currency, "currency can't be null");
         this.amount = amount;
         this.currency = currency;
     }
