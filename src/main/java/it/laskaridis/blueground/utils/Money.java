@@ -5,6 +5,7 @@ import org.springframework.util.Assert;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Embeddable
 public final class Money implements Serializable {
@@ -41,5 +42,23 @@ public final class Money implements Serializable {
 
     public Currency getCurrency() {
         return currency;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Money money = (Money) o;
+        return amount.equals(money.amount) && currency.equals(money.currency);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amount, currency);
+    }
+
+    @Override
+    public String toString() {
+        return this.amount.toPlainString() + " " + this.currency.getCode();
     }
 }
