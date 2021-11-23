@@ -20,23 +20,16 @@ public class Unit {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
     private String uuid;
-
     @NotBlank
     private String title;
-
     @NotBlank
     private String region;
-
     private String description;
-
     @NotBlank
     private String cancellationPolicy;
-
     @Embedded @Valid
     private Money price;
-
     private LocalDateTime createdAt;
 
     @PrePersist

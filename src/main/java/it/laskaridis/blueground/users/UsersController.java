@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.annotation.security.RolesAllowed;
 import java.net.URI;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
 @RestController
+@RolesAllowed({ Role.ADMINISTRATOR })
 public class UsersController {
 
     private final UsersRepository repository;
@@ -25,7 +27,7 @@ public class UsersController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<Void> createUser(@RequestBody UserView view) {
+    public ResponseEntity<Void> createUser(@RequestBody CreateUserView view) {
         User newUser = this.repository.save(view.toModel());
         URI uri = createResourceUriFor(newUser);
         return ResponseEntity.created(uri).build();
@@ -39,10 +41,10 @@ public class UsersController {
     }
 
     @GetMapping("/users")
-    public List<UserView> getAllUsers(Pageable pageable) {
+    public List<ShowUserView> getAllUsers(Pageable pageable) {
         return this.repository.findAll(pageable)
                 .stream()
-                .map(UserView::fromModel)
+                .map(ShowUserView::fromModel)
                 .collect(toList());
     }
 }

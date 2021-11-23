@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -11,25 +12,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserView {
+public class CreateUserView {
 
-    public static UserView fromModel(User model) {
-        return new UserViewBuilder()
-                .email(model.getEmail())
-                .build();
-    }
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public User toModel() {
         return new User.UserBuilder()
-                .email(getEmail())
-                .password(getPassword())
                 .uuid(getUuid())
+                .email(getEmail())
+                .password(passwordEncoder.encode(getPassword()))
+                .role(getRole())
                 .createdAt(getCreatedAt())
                 .build();
     }
 
+    private String uuid;
     private String email;
     private String password;
-    private String uuid;
+    private String role;
     private LocalDateTime createdAt;
 }
