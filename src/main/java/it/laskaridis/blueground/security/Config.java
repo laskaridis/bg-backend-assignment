@@ -2,6 +2,7 @@ package it.laskaridis.blueground.security;
 
 import it.laskaridis.blueground.users.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,6 +31,12 @@ import java.util.List;
 )
 public class Config extends WebSecurityConfigurerAdapter {
 
+    @Value("${springdoc.api-docs.path}")
+    private String restApiDocPath;
+
+    @Value("${springdoc.swagger-ui.path}")
+    private String swaggerPath;
+
     @Autowired
     private UsersRepository users;
 
@@ -52,7 +59,9 @@ public class Config extends WebSecurityConfigurerAdapter {
                         res.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage()))
                 .and();
         http.authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
+                .antMatchers(String.format("%s/**", restApiDocPath)).permitAll()
+                .antMatchers(String.format("%s/**", swaggerPath)).permitAll()
+                .antMatchers("/api/v1/auth/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }

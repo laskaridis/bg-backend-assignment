@@ -1,5 +1,6 @@
 package it.laskaridis.blueground.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 public class CreateUserView implements Serializable {
 
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @JsonIgnore private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public User toModel() {
         return new User.UserBuilder()

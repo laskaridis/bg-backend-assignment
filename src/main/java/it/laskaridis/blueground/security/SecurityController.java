@@ -2,6 +2,7 @@ package it.laskaridis.blueground.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import it.laskaridis.blueground.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,11 +16,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
+@Tag(name = "Security")
 @RestController
+@RequestMapping("/api/v1")
 public class SecurityController {
 
     public static final String X_AUTH_USERNAME_HEADER = "x-auth-username";

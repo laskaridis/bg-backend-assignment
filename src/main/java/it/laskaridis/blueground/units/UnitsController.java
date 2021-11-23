@@ -1,5 +1,6 @@
 package it.laskaridis.blueground.units;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import it.laskaridis.blueground.common.Money;
 import it.laskaridis.blueground.users.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+@Tag(name = "Unit")
 @RestController
+@RequestMapping("/api/v1")
 public class UnitsController {
 
     private final UnitsRepository unitRepository;
@@ -80,7 +83,7 @@ public class UnitsController {
     }
 
     /**
-     * PATCH /units/{uuid}
+     * PATCH /{uuid}
      */
     @PatchMapping("/units/{uuid}")
     @RolesAllowed({ Role.ADMINISTRATOR })
@@ -89,7 +92,7 @@ public class UnitsController {
     }
 
     /**
-     * DELETE /units/{uuid}
+     * DELETE /{uuid}
      */
     @DeleteMapping("/units/{uuid}")
     @RolesAllowed({ Role.ADMINISTRATOR })
