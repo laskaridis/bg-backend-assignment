@@ -1,0 +1,458 @@
+{
+	"variables": [],
+	"info": {
+		"name": "bg-background",
+		"_postman_id": "d800cb2f-6d08-9ded-6a7b-a7a6e1f9dc7c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"description": "Users resource",
+			"item": [
+				{
+					"name": "List all users",
+					"request": {
+						"url": "localhost:8080/api/v1/users",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"lala@lala.com\",\n\t\"password\": \"tralala\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create user",
+					"request": {
+						"url": "localhost:8080/api/v1/users",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"lala@lala.com\",\n\t\"password\": \"tralala\",\n\t\"role\": \"ROLE_COLONIST\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Units",
+			"description": "Units resource",
+			"item": [
+				{
+					"name": "Create unit",
+					"request": {
+						"url": "localhost:8080/api/v1/units",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Very cold place\",\n\t\"region\": \"russia\",\n\t\"description\": \"this is my mars unit\",\n\t\"cancellationPolicy\": \"none\",\n\t\"priceAmount\": 100000,\n\t\"priceCurrency\": \"EUR\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List all units",
+					"request": {
+						"url": "localhost:8080/api/v1/units",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get unit",
+					"request": {
+						"url": "localhost:8080/api/v1/units/96d0624e-f17a-47d9-a0ce-0bdb95c84505",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete unit",
+					"request": {
+						"url": "localhost:8080/api/v1/units/794fd852-d3f6-4b9e-a77e-81e5da6d1491",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update unit",
+					"request": {
+						"url": "localhost:8080/api/v1/units/96d0624e-f17a-47d9-a0ce-0bdb95c84505",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"uuid\": \"9f25a32f-6bb8-41f7-adcd-4f9168399139\",\n        \"title\": \"My unit (updated)\",\n        \"description\": \"this is my mars unit (updated)\",\n        \"priceAmount\": 2000000,\n        \"priceCurrency\": \"EUR\",\n        \"cancellationPolicy\": \"some\",\n        \"createdAt\": \"2021-11-22T12:55:37.277972\"\n    }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add unit image",
+					"request": {
+						"url": "localhost:8080/api/v1/units/96d0624e-f17a-47d9-a0ce-0bdb95c84505/images",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "",
+									"type": "file",
+									"src": "image.png"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get unit image",
+					"request": {
+						"url": "localhost:8080/api/v1/units/96d0624e-f17a-47d9-a0ce-0bdb95c84505/images/image.png",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete unit image",
+					"request": {
+						"url": "localhost:8080/api/v1/units/96d0624e-f17a-47d9-a0ce-0bdb95c84505/images/image.png",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Security",
+			"description": "",
+			"item": [
+				{
+					"name": "Admin login",
+					"request": {
+						"url": "localhost:8080/api/v1/auth/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "x-auth-username",
+								"value": "admin@localhost",
+								"description": ""
+							},
+							{
+								"key": "x-auth-password",
+								"value": "changeme",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Colonist login",
+					"request": {
+						"url": "localhost:8080/api/v1/auth/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "x-auth-username",
+								"value": "colonist@localhost",
+								"description": ""
+							},
+							{
+								"key": "x-auth-password",
+								"value": "changeme",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"description": "",
+			"item": [
+				{
+					"name": "Show unit bookings",
+					"request": {
+						"url": "localhost:8080/api/v1/units/4c046a31-06ce-46b6-8835-741bed956a71/bookings",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create booking",
+					"request": {
+						"url": "localhost:8080/api/v1/units/4c046a31-06ce-46b6-8835-741bed956a71/bookings",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bookedFrom\": \"2021-01-01\",\n\t\"bookedUntil\": \"2021-01-01\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show booking",
+					"request": {
+						"url": "localhost:8080/api/v1/bookings/52d8c61b-9b08-4447-b749-65891ac3c2b5",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show user bookings",
+					"request": {
+						"url": "localhost:8080/api/v1/users/5fe651bb-7a6e-41e7-8be3-2738d234545e/bookings",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

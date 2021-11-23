@@ -3,11 +3,9 @@ package it.laskaridis.blueground.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import it.laskaridis.blueground.users.User;
+import it.laskaridis.blueground.users.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @Tag(name = "Security")
 @RestController
@@ -50,12 +51,16 @@ public class SecurityController {
         try {
             Authentication auth = authenticationManager.authenticate(token);
             User user = (User) auth.getPrincipal();
-            return ResponseEntity.noContent().header(HttpHeaders.AUTHORIZATION, createJwtTokenFor(user)).build();
+            return ResponseEntity
+                    .noContent()
+                    .header(AUTHORIZATION, createJwtTokenFor(user))
+                    .build();
         } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return ResponseEntity.status(UNAUTHORIZED).build();
         }
     }
 
+    // TODO: expose this in app props
     private static final long ONE_DAY_IN_MILLIS = 1 * 24 * 60 * 60 * 1000;
 
     private Date getJwtTokenExpirationPeriod() {
@@ -66,6 +71,6 @@ public class SecurityController {
         return JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(getJwtTokenExpirationPeriod())
-                .sign(Algorithm.HMAC256("secret".getBytes()));
+                .sign(Algorithm.HMAC256(this.authTokenSecret.getBytes()));
     }
 }

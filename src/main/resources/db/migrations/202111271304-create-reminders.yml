@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 202111271304-create-reminders
+      author: lefteris.laskaridis@gmail.com
+      changes:
+        - createTable:
+            tableName: reminders
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    - primaryKey: true
+                    - nullable: false
+              - column:
+                  name: uuid
+                  type: varchar(36)
+                  constraints:
+                    - unique: true
+                    - nullable: false
+              - column:
+                  name: version
+                  type: bigint
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: booking_id
+                  type: bigint
+                  constraints:
+                    - unique: true
+                    - nullable: false
+              - column:
+                  name: scheduled_at
+                  type: timestamp
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: sent_at
+                  type: timestamp
+              - column:
+                  name: dispatch_attempts_count
+                  type: integer
+                  defaultValue: 0
+                  constraints:
+                    - nullable: false
+        - addUniqueConstraint:
+            constraintName: unique_reminders_uuid
+            tableName: reminders
+            columnNames: uuid
+        - addForeignKeyConstraint:
+            constraintName: fk_reminders_bookings
+            baseTableName: reminders
+            baseColumnNames: booking_id
+            referencedTableName: bookings
+            referencedColumnNames: id
+        - createIndex:
+            indexName: idx_bookings_scheduled_at
+            tableName: reminders
+            columns:
+              - column:
+                  name: scheduled_at
+                  type: timestamp

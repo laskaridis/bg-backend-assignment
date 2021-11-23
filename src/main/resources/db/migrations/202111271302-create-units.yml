@@ -1,0 +1,94 @@
+databaseChangeLog:
+  - changeSet:
+      id: 202111271302-create-units
+      author: lefteris.laskaridis@gmail.com
+      changes:
+        - createTable:
+            tableName: units
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    - primaryKey: true
+                    - nullable: false
+              - column:
+                  name: uuid
+                  type: varchar(36)
+                  constraints:
+                    - unique: true
+                    - nullable: false
+              - column:
+                  name: version
+                  type: bigint
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: last_modified_at
+                  type: timestamp
+              - column:
+                  name: created_by_id
+                  type: bigint
+              - column:
+                  name: last_modified_by_id
+                  type: bigint
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: region
+                  type: varchar(255)
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: cancellation_policy
+                  type: varchar(255)
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: price_amount
+                  type: decimal
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: price_currency
+                  type: varchar(3)
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: image_file
+                  type: varchar(255)
+        - addUniqueConstraint:
+            constraintName: unique_units_uuid
+            tableName: units
+            columnNames: uuid
+        - addForeignKeyConstraint:
+            constraintName: fk_units_created_by
+            baseTableName: units
+            baseColumnNames: created_by_id
+            referencedTableName: users
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_units_last_modified_by
+            baseTableName: units
+            baseColumnNames: last_modified_by_id
+            referencedTableName: users
+            referencedColumnNames: id
+        - createIndex:
+            indexName: idx_units_uuid
+            tableName: units
+            columns:
+              - column:
+                  name: uuid
+                  type: varchar(36)
